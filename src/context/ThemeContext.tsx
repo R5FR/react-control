@@ -6,13 +6,15 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<ThemeMode>(() => {
     const saved = localStorage.getItem('theme');
-    return (saved as ThemeMode) || 'light';
+    return (saved as ThemeMode) || 'dark';
   });
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
     const htmlElement = document.documentElement;
     
+    // Add both data attribute and class for compatibility
+    htmlElement.setAttribute('data-theme', theme);
     if (theme === 'dark') {
       htmlElement.classList.add('dark');
     } else {
