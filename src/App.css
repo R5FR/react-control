@@ -1,0 +1,7 @@
+/* App Container - handled by Layout component */
+/* All styling is now modular in component-specific CSS files */
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  /* Mobile adjustments handled in individual component files */
+}
