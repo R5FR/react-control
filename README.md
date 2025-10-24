@@ -98,41 +98,6 @@ Projet éducatif 2024
 
 Une application React moderne et performante affichant une liste dynamique d'utilisateurs avec recherche, tri, pagination et favoris persistants.
 
-## [*] Objectifs Atteints (Niveau 4 + Bonus)
-
-### [+] Niveau 1 - Base dynamique et structurée
-- [x] Affichage liste utilisateurs depuis API dummyjson
-- [x] Affichage détail utilisateur au clic
-- [x] 3+ composants (UserCard, UserListPage, UserDetailPage)
-- [x] React Router (/ et /user/:id)
-- [x] État de chargement et gestion erreurs
-
-### [+] Niveau 2 - Interactivité et navigation
-- [x] Recherche temps réel (nom, prénom, email)
-- [x] Tri par nom ou âge
-- [x] Pagination 10 utilisateurs/page
-- [x] Gestion erreurs avec try/catch
-
-### [+] Niveau 3 - Application complète et UX évoluée
-- [x] Système de favoris avec localStorage
-- [x] Thème clair/sombre avec Context API
-- [x] Tri dynamique via select dropdown
-- [x] Spinner et skeleton loading
-- [x] Messages d'erreur stylisés avec bouton retry
-- [x] Optimisation avec useMemo
-- [x] Transitions CSS (fade-in, hover)
-
-### [+] Niveau 4 - Projet abouti et professionnel
-- [x] Custom hook `useUsers()` centralisé
-- [x] Optimisations avancées (useCallback, React.memo, ErrorBoundary)
-- [x] Pagination serveur (limit/skip)
-- [x] Mode hors ligne (affiche favoris)
-- [x] Page 404 pour utilisateurs inexistants
-
-### 🎁 Bonus
-- [x] Notifications toast avec react-hot-toast
-- [ ] Tests unitaires Vitest (à implémenter)
-- [ ] Déploiement Vercel (à configurer)
 
 ## 📋 Technologies
 
