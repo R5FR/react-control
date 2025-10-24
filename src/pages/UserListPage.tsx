@@ -1,13 +1,16 @@
 import { useUsers } from '../hooks/useUsers';
 import { UserCard } from '../components/UserCard';
+import { AdvancedFilters } from '../components/AdvancedFilters';
 import { Skeleton } from '../components/Loader';
 import './UserListPage.css';
 import toast from 'react-hot-toast';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export const UserListPage: React.FC = () => {
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const {
     users,
+    allUsers,
     loading,
     error,
     search,
@@ -20,6 +23,7 @@ export const UserListPage: React.FC = () => {
     setCurrentPage,
     totalPages,
     retry,
+    setAdvancedFilters,
   } = useUsers();
 
   useEffect(() => {
@@ -77,6 +81,13 @@ export const UserListPage: React.FC = () => {
         )}
       </div>
 
+      <AdvancedFilters
+        users={allUsers}
+        onFiltersChange={setAdvancedFilters}
+        isOpen={filtersOpen}
+        onToggle={() => setFiltersOpen(!filtersOpen)}
+      />
+
       {users.length === 0 && !loading ? (
         <div className="no-results">
           <p>No users found. Try adjusting your search.</p>
@@ -96,7 +107,7 @@ export const UserListPage: React.FC = () => {
 
             <div className="pagination">
               <button
-                onClick={() => setCurrentPage((prev: number) => Math.max(prev - 1, 1))}
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
                 className="pagination-btn"
               >
@@ -106,7 +117,7 @@ export const UserListPage: React.FC = () => {
                 Page {currentPage} of {totalPages}
               </span>
               <button
-                onClick={() => setCurrentPage((prev: number) => Math.min(prev + 1, totalPages))}
+                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                 disabled={currentPage === totalPages}
                 className="pagination-btn"
               >

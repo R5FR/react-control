@@ -1,10 +1,9 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import type { User, UseUsersReturn } from '../types';
+import type { User, UseUsersReturn, AdvancedFiltersState } from '../types';
 import { getUsers, searchAndFilterUsers, sortUsers } from '../utils/userService';
 
 const ITEMS_PER_PAGE = 10;
 const FAVORITES_STORAGE_KEY = 'FAVORITES_STORAGE_KEY';
-const ALL_USERS_CACHE = 'ALL_USERS_CACHE';
 
 export const useUsers = (): UseUsersReturn => {
   const [users, setUsers] = useState<User[]>([]);
@@ -17,6 +16,11 @@ export const useUsers = (): UseUsersReturn => {
     return saved ? JSON.parse(saved) : [];
   });
   const [currentPage, setCurrentPage] = useState(1);
+  const [advancedFilters, setAdvancedFilters] = useState<AdvancedFiltersState>({
+    ageRange: [18, 80],
+    selectedCompanies: [],
+    selectedCities: [],
+  });
 
   // Fetch users from API
   const fetchUsers = useCallback(async () => {
@@ -67,9 +71,34 @@ export const useUsers = (): UseUsersReturn => {
   // Filter and search users
   const filteredUsers = useMemo(() => {
     let result = searchAndFilterUsers(users, search);
+    
+    // Apply advanced filters
+    result = result.filter((user: User) => {
+      // Age filter
+      if (user.age < advancedFilters.ageRange[0] || user.age > advancedFilters.ageRange[1]) {
+        return false;
+      }
+      
+      // Company filter
+      if (advancedFilters.selectedCompanies.length > 0) {
+        if (!user.company?.name || !advancedFilters.selectedCompanies.includes(user.company.name)) {
+          return false;
+        }
+      }
+      
+      // City filter
+      if (advancedFilters.selectedCities.length > 0) {
+        if (!user.address?.city || !advancedFilters.selectedCities.includes(user.address.city)) {
+          return false;
+        }
+      }
+      
+      return true;
+    });
+    
     result = sortUsers(result, sortBy);
     return result;
-  }, [users, search, sortBy]);
+  }, [users, search, sortBy, advancedFilters]);
 
   // Calculate pagination
   const totalPages = Math.ceil(filteredUsers.length / ITEMS_PER_PAGE);
@@ -81,6 +110,7 @@ export const useUsers = (): UseUsersReturn => {
 
   return {
     users: paginatedUsers,
+    allUsers: users,
     filteredUsers,
     loading,
     error,
@@ -91,8 +121,10 @@ export const useUsers = (): UseUsersReturn => {
     favorites,
     toggleFavorite,
     currentPage,
-    setCurrentPage: (page: number) => setCurrentPage(page),
+    setCurrentPage,
     totalPages,
     retry: fetchUsers,
+    advancedFilters,
+    setAdvancedFilters,
   };
 };

@@ -1,3 +1,5 @@
+import type { Dispatch, SetStateAction } from 'react';
+
 // User API Response Types
 export interface User {
   id: number;
@@ -42,6 +44,7 @@ export interface UsersResponse {
 // Hook Return Types
 export interface UseUsersReturn {
   users: User[];
+  allUsers: User[];
   filteredUsers: User[];
   loading: boolean;
   error: string | null;
@@ -52,9 +55,17 @@ export interface UseUsersReturn {
   favorites: number[];
   toggleFavorite: (userId: number) => void;
   currentPage: number;
-  setCurrentPage: (page: number) => void;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
   totalPages: number;
   retry: () => void;
+  advancedFilters: AdvancedFiltersState;
+  setAdvancedFilters: (filters: AdvancedFiltersState) => void;
+}
+
+export interface AdvancedFiltersState {
+  ageRange: [number, number];
+  selectedCompanies: string[];
+  selectedCities: string[];
 }
 
 // Theme Context Types
