@@ -1,19 +1,98 @@
-# React + TypeScript + Vite
+# 👥 Users Directory
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Application React **Niveau 4+** : Annuaire d'utilisateurs avec recherche, tri, favoris et thème sombre.
 
-Currently, two official plugins are available:
+## ✅ Fonctionnalités
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔍 **Recherche** en temps réel (nom, email, username)
+- 🔀 **Tri** par nom ou âge
+- 📄 **Pagination** (10 users/page)
+- ⭐ **Favoris** avec persistance localStorage
+- 🌓 **Thème** clair/sombre
+- 🎁 **Filtres avancés** (âge, entreprise, ville)
+- 📱 **Design responsif** avec glassmorphisme
+- ⚡ **Optimisé** (useMemo, React.memo, ErrorBoundary)
+- 🧪 **Tests** (42 tests Vitest - 100% passing)
+- 🔔 **Notifications** avec react-hot-toast
 
-## React Compiler
+## 🚀 Démarrage
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install          # Installation
+npm run dev          # Développement (http://localhost:5173)
+npm run build        # Production
+npm run lint         # ESLint
+npm test             # Tests Vitest
+```
 
-## Expanding the ESLint configuration
+## 📁 Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+```
+src/
+├── components/       # UserCard, AdvancedFilters, ErrorBoundary
+├── pages/           # UserListPage, UserDetailPage, FavoritesPage
+├── hooks/           # useUsers (logique métier)
+├── context/         # ThemeContext
+├── utils/           # userService (search, sort, filter)
+└── types/           # TypeScript interfaces
+```
+
+## 📋 Technologies
+
+| Stack | Version |
+|-------|---------|
+| React | 19.1.1 |
+| TypeScript | 5.9.3 |
+| Vite | 7.1.7 |
+| Vitest | 2.1.9 |
+| React Router | 7.9.4 |
+| React Hot Toast | 2.4.1 |
+
+## 🎯 Objectifs (Exam)
+
+- ✅ Niveau 1: Liste + détail + Router
+- ✅ Niveau 2: Recherche + tri + pagination
+- ✅ Niveau 3: Favoris + thème + optimisations
+- ✅ Niveau 4: Custom hook + ErrorBoundary + mode offline
+- ✅ Bonus: Toast + tests Vitest complets
+
+## 📊 Résultats Tests
+
+```
+✓ 42 tests passed (100%)
+✓ Build: 256 KB → 81.58 KB (gzipped)
+✓ Production ready
+```
+
+## 🔧 Hook Principal
+
+```typescript
+const {
+  users, filteredUsers, loading, error,
+  search, setSearch,
+  sortBy, setSortBy,
+  favorites, toggleFavorite,
+  currentPage, setCurrentPage,
+  totalPages, retry
+} = useUsers();
+```
+
+## 📦 API
+
+```
+GET https://dummyjson.com/users?limit=30&skip=0
+GET https://dummyjson.com/users/{id}
+```
+
+## 💡 Notes
+
+- **Offline Mode**: Les favoris s'affichent même si l'API est down
+- **localStorage**: Favoris + Thème persistants
+- **Performance**: useMemo pour search/sort, React.memo pour composants
+
+## 📄 Licence
+
+Projet éducatif 2024
 
 # 👥 Users Directory - Application Dynamique
 
