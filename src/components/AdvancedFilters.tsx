@@ -89,7 +89,7 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
   return (
     <>
       <button className="filters-toggle-btn" onClick={onToggle} title="Toggle advanced filters">
-        [+] Filtres avancés
+        + Filtres avancés
       </button>
 
       {isOpen && (
@@ -97,7 +97,7 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
           <div className="filters-header">
             <h3>Filtres avancés</h3>
             <button className="close-btn" onClick={onToggle} aria-label="Close filters">
-              [x]
+              x
             </button>
           </div>
 
