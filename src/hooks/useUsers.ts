@@ -3,7 +3,8 @@ import type { User, UseUsersReturn } from '../types';
 import { getUsers, searchAndFilterUsers, sortUsers } from '../utils/userService';
 
 const ITEMS_PER_PAGE = 10;
-const FAVORITES_STORAGE_KEY = 'user-favorites';
+const FAVORITES_STORAGE_KEY = 'FAVORITES_STORAGE_KEY';
+const ALL_USERS_CACHE = 'ALL_USERS_CACHE';
 
 export const useUsers = (): UseUsersReturn => {
   const [users, setUsers] = useState<User[]>([]);
@@ -40,9 +41,18 @@ export const useUsers = (): UseUsersReturn => {
     fetchUsers();
   }, [fetchUsers]);
 
+  // Save all users to cache when they are loaded
+  useEffect(() => {
+    if (users.length > 0) {
+      localStorage.setItem('ALL_USERS_CACHE', JSON.stringify(users));
+    }
+  }, [users]);
+
   // Persist favorites to localStorage
   useEffect(() => {
     localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites));
+    // Dispatch custom event to update favorites badge
+    window.dispatchEvent(new Event('favoritesChanged'));
   }, [favorites]);
 
   // Toggle favorite

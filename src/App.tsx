@@ -5,6 +5,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { Layout } from './components/Layout';
 import { UserListPage } from './pages/UserListPage';
 import { UserDetailPage } from './pages/UserDetailPage';
+import { FavoritesPage } from './pages/FavoritesPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import './App.css';
 
@@ -17,6 +18,7 @@ function App() {
             <Routes>
               <Route path="/" element={<UserListPage />} />
               <Route path="/user/:id" element={<UserDetailPage />} />
+              <Route path="/favorites" element={<FavoritesPage />} />
               <Route path="/404" element={<NotFoundPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
